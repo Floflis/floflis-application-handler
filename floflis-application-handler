@@ -2,7 +2,6 @@
 
 SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 
-#application_name="$(basename $1)"
 application_name="$(basename "$1")"
 
 # Description: handle .apps or .game applications when trying to open them. Offer to install or simply run
@@ -24,20 +23,16 @@ fi
       open_tmp_path="/tmp/openned-floflis-applications/games"
 fi
 
-   echo "1: $1; application_name: $application_name" > /tmp/openned-floflis-applications/apps/test.txt
-
-   #tar -C $open_tmp_path -xzf $application_name
-   #tar -C $open_tmp_path -xzf $1
    tar -C $open_tmp_path -xzf "$1"
    cd "$open_tmp_path/application"
    current_app="$(ls "$open_tmp_path/application")"
    cp -r -f --preserve=all . "$open_tmp_path"
    cd ..
-   #rm -r "application" DEBUG
+   rm -r "application"
    cd "$current_app"
    floflis-packager c2 initpreview
    cd ..
-   #rm -r "$current_app" DEBUG
+   rm -r "$current_app"
 else
    echo "---- Floflis Application Handler ----"
    echo "The file you tried to open isn't a Floflis application."
