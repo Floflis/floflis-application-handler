@@ -11,7 +11,7 @@ cat > /usr/share/applications/floflis-application-handler.desktop <<EOF
 [Desktop Entry]
 Type=Application
 Name=Floflis Application Handler
-Exec=floflis-application-handler %u
+Exec=floflis-application-handler %f
 Icon=central
 StartupNotify=false
 MimeType=application-x-apps;application-x-game;
