@@ -1,0 +1,4 @@
+chown -h 1000:1000 './floflis-application-handler'
+chmod 0664 './floflis-application-handler'
+/usr/bin/touch -hcmd "2022-03-08 16:49:43.8939150220 -0300" './floflis-application-handler'
+/usr/bin/touch -hcad "2022-03-08 16:49:55.7200214260 -0300" './floflis-application-handler'
