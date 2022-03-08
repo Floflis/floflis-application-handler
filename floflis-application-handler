@@ -2,45 +2,39 @@
 
 SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 
+#application_name="$(basename $1)"
+application_name="$(basename "$1")"
+
 # Description: handle .apps or .game applications when trying to open them. Offer to install or simply run
 
 #(gnome-terminal --tab --title="Neofetch" -- /bin/sh -c 'neofetch; exec bash' &)
-
-#if [ "$1" = "" ]; then
-#   
-#fi
-
-#tar -C . -xzf <application-name.extension>
-
 #if user want to install: mv <folder-name> /1/apps
 
 #if [ "$1" != "" ]; then
-if [ "$(echo ${1##*.})" = "apps" ] || [ "$(echo ${1##*.})" = "game" ]; then
+if [ "$(echo ${application_name##*.})" = "apps" ] || [ "$(echo ${application_name##*.})" = "game" ]; then
    mkdir /tmp/openned-floflis-applications
    mkdir /tmp/openned-floflis-applications/apps
    mkdir /tmp/openned-floflis-applications/games
 
-   if [ "$(echo ${1##*.})" = "apps" ]; then
+   if [ "$(echo ${application_name##*.})" = "apps" ]; then
       open_tmp_path="/tmp/openned-floflis-applications/apps"
 fi
 
-   if [ "$(echo ${1##*.})" = "game" ]; then
+   if [ "$(echo ${application_name##*.})" = "game" ]; then
       open_tmp_path="/tmp/openned-floflis-applications/games"
 fi
 
-   #echo "$1" > "/tmp/openned-floflis-applications/apps/$1.txt"
-   #echo "$1" > "/tmp/openned-floflis-applications/apps/test.txt"
-   echo "$1" > /tmp/openned-floflis-applications/apps/test.txt
-   
-   tar -C $open_tmp_path -xzf $1
+   echo "1: $1; application_name: $application_name" > /tmp/openned-floflis-applications/apps/test.txt
+
+   #tar -C $open_tmp_path -xzf $application_name
+   #tar -C $open_tmp_path -xzf $1
+   tar -C $open_tmp_path -xzf "$1"
    cd "$open_tmp_path/application"
    current_app="$(ls "$open_tmp_path/application")"
-   #cp -r -f --preserve=all . "$open_tmp_path" DEBUG
+   cp -r -f --preserve=all . "$open_tmp_path"
    cd ..
    #rm -r "application" DEBUG
-#rm -r "$open_tmp_path/application"
    cd "$current_app"
-#floflis-packager initpreview
    floflis-packager c2 initpreview
    cd ..
    #rm -r "$current_app" DEBUG
