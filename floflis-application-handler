@@ -1,0 +1,3 @@
+ # Description: handle .apps apps when trying to open them. Offer to install or simply run
+ 
+tar -C . -xzf central.apps
