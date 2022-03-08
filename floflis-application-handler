@@ -1,3 +1,7 @@
- # Description: handle .apps apps when trying to open them. Offer to install or simply run
- 
-tar -C . -xzf central.apps
+# Description: handle .apps apps when trying to open them. Offer to install or simply run
+
+#tar -C . -xzf central.apps
+
+#detect the extracted <folder-name>
+#if user want to open: mv <folder-name> /tmp/openned-floflis-applications /game /apps
+#if user want to install: mv <folder-name> /1/apps
