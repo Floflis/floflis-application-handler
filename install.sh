@@ -1,5 +1,7 @@
 #!/bin/sh
 
+flouser=$(logname)
+
 echo "Installing floflis-application-handler..."
 
 sudo cp -f floflis-application-handler /usr/bin/floflis-application-handler
@@ -16,6 +18,14 @@ Icon=central
 StartupNotify=false
 MimeType=application-x-apps;application-x-game;
 EOF
+
+echo "Turning floflis-application-handler into the default program (to user $flouser) for .apps and .game applications..."
+#cat >> $flouser/.config/mimeapps.list <<EOF
+cat >> /home/$flouser/.config/mimeapps.list <<EOF
+application/x-apps=floflis-application-handler.desktop
+application/x-game=floflis-application-handler.desktop
+EOF
+# this is continuously adding the same entries to mimeapps.list and have to be fixed
 
 installfail(){
    echo "Installation has failed."
