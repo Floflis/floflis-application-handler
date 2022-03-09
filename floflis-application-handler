@@ -37,7 +37,7 @@ fi
    if zenity --question --title "Install $current_app?" --width 500 --height 100 --text "You could open this $application_type without needing to doubleclick the \"$application_name\" file. Do you want to install \"$current_app\"?" --icon-name="central";then
       #mv "$current_app" /1/apps
       #if mv "$current_app" /1/apps; then echo "Moved";exit 0; else echo "Couldn't move";exit 0; fi
-      if mv "$current_app" /1/apps; then notify-send "From $application_name, \"$current_app\" has been successfully installed!";exit 0; else notify-send "Couldn't install \"$current_app\" from $application_name. Possibly this is already installed and couldn't be overwritten." --icon="error";exit 0; fi
+      if mv "$current_app" /1/apps; then notify-send "From $application_name, \"$current_app\" has been successfully installed!";exit 0; else notify-send "Couldn't install \"$current_app\" from $application_name. Possibly this is already installed and couldn't be overwritten." --icon="error";rm -r "$current_app";exit 0; fi
       #notify-send "From $application_name, \"$current_app\" has been successfully installed!"
       exit 0
    else
