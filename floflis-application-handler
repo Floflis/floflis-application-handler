@@ -8,16 +8,18 @@ application_name="$(basename "$1")"
 
 #if [ "$1" != "" ]; then
 if [ "$(echo ${application_name##*.})" = "apps" ] || [ "$(echo ${application_name##*.})" = "game" ]; then
-   mkdir /tmp/openned-floflis-applications
-   mkdir /tmp/openned-floflis-applications/apps
-   mkdir /tmp/openned-floflis-applications/games
+   mkdir /tmp/floflis/openned-applications
+   mkdir /tmp/floflis/openned-applications/apps
+   mkdir /tmp/floflis/openned-applications/games
 
    if [ "$(echo ${application_name##*.})" = "apps" ]; then
-      open_tmp_path="/tmp/openned-floflis-applications/apps"
+      open_tmp_path="/tmp/floflis/openned-applications/apps"
+      application_type="app"
 fi
 
    if [ "$(echo ${application_name##*.})" = "game" ]; then
-      open_tmp_path="/tmp/openned-floflis-applications/games"
+      open_tmp_path="/tmp/floflis/openned-applications/games"
+      application_type="game"
 fi
 
    tar -C $open_tmp_path -xzf "$1"
@@ -30,10 +32,12 @@ fi
    floflis-packager c2 initpreview
    cd ..
    #if zenity --question --title "Install $current_app?" --width 500 --height 100 --text "You could open this app without needing to doubleclick the \"$application_name\" file. Do you want to install \"$current_app\"?";then
-   if zenity --question --title "Install $current_app?" --width 500 --height 100 --text "You could open this app without needing to doubleclick the \"$application_name\" file. Do you want to install \"$current_app\"?" --icon-name="central";then
-      mv "$current_app" /1/apps
-      
-      notify-send "From $application_name, \"$current_app\" has been successfully installed!"
+   #if zenity --question --title "Install $current_app?" --width 500 --height 100 --text "You could open this app without needing to doubleclick the \"$application_name\" file. Do you want to install \"$current_app\"?" --icon-name="central";then
+   if zenity --question --title "Install $current_app?" --width 500 --height 100 --text "You could open this $application_type without needing to doubleclick the \"$application_name\" file. Do you want to install \"$current_app\"?" --icon-name="central";then
+      #mv "$current_app" /1/apps
+      #if mv "$current_app" /1/apps; then echo "Moved";exit 0; else echo "Couldn't move";exit 0; fi
+      if mv "$current_app" /1/apps; then notify-send "From $application_name, \"$current_app\" has been successfully installed!";exit 0; else notify-send "Couldn't install \"$current_app\" from $application_name. Possibly this is already installed and couldn't be overwritten." --icon="error";exit 0; fi
+      #notify-send "From $application_name, \"$current_app\" has been successfully installed!"
       exit 0
    else
       rm -r "$current_app"
