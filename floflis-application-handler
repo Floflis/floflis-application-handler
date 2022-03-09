@@ -6,8 +6,6 @@ application_name="$(basename "$1")"
 
 # Description: handle .apps or .game applications when trying to open them. Offer to install or simply run
 
-#(gnome-terminal --tab --title="Neofetch" -- /bin/sh -c 'neofetch; exec bash' &)
-
 #if [ "$1" != "" ]; then
 if [ "$(echo ${application_name##*.})" = "apps" ] || [ "$(echo ${application_name##*.})" = "game" ]; then
    mkdir /tmp/openned-floflis-applications
@@ -31,20 +29,16 @@ fi
    cd "$current_app"
    floflis-packager c2 initpreview
    cd ..
-   #rm -r "$current_app"
-   #zenity --question --title "Install $current_app?" --width 500 --height 100 --text "You could open this app without needing to click $application_name. Do you want to install \"$current_app\"?"
-   #if zenity --question --title "Install $current_app?" --width 500 --height 100 --text "You could open this app without needing to click $application_name. Do you want to install \"$current_app\"?"; then echo "Yes";exit 0; else echo "No";exit 1; fi
-   #if zenity --question --title "Install $current_app?" --width 500 --height 100 --text "You could open this app without needing to click $application_name. Do you want to install \"$current_app\"?"; then echo "Yes";exit 0; else echo "No";exit 1; fi
-   #if zenity --question --title "Install $current_app?" --width 500 --height 100 --text "You could open this app without needing to click $application_name. Do you want to install \"$current_app\"?"; then mv "$current_app" /1/apps;notify-send "From $application_name, \"$current_app\" has been successfully installed!";exit 0; else rm -r "$current_app";exit 0; fi
-   #if zenity --question --title "Install $current_app?" --width 500 --height 100 --text "You could open this app without needing to doubleclick the \"$application_name\" file. Do you want to install \"$current_app\"?"; then mv "$current_app" /1/apps;notify-send "From $application_name, \"$current_app\" has been successfully installed!";exit 0; else rm -r "$current_app";exit 0; fi
-   if zenity --question --title "Install $current_app?" --width 500 --height 100 --text "You could open this app without needing to doubleclick the \"$application_name\" file. Do you want to install \"$current_app\"?";then
-      mv "$current_app" /1/apps;notify-send "From $application_name, \"$current_app\" has been successfully installed!"
+   #if zenity --question --title "Install $current_app?" --width 500 --height 100 --text "You could open this app without needing to doubleclick the \"$application_name\" file. Do you want to install \"$current_app\"?";then
+   if zenity --question --title "Install $current_app?" --width 500 --height 100 --text "You could open this app without needing to doubleclick the \"$application_name\" file. Do you want to install \"$current_app\"?" --icon-name="central";then
+      mv "$current_app" /1/apps
+      
+      notify-send "From $application_name, \"$current_app\" has been successfully installed!"
       exit 0
    else
       rm -r "$current_app"
       exit 0
 fi
-   #rm -r "$current_app"
 else
    echo "---- Floflis Application Handler ----"
    echo "The file you tried to open isn't a Floflis application."
