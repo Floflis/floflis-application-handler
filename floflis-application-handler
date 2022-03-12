@@ -3,6 +3,7 @@
 SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 
 application_name="$(basename "$1")"
+application_name="$(tar -zxvOf central.apps manifest.webapp | jq -r '.id')" # credits: https://www.unix.com/34764-post2.html
 
 # Description: handle .apps or .game applications when trying to open them. Offer to install or simply run
 
