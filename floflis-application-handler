@@ -14,14 +14,16 @@ if [ "$(echo ${application_file##*.})" = "apps" ] || [ "$(echo ${application_fil
    mkdir /tmp/floflis/openned-applications/games
 
    if [ "$(echo ${application_file##*.})" = "apps" ]; then
-      open_tmp_path="/tmp/floflis/openned-applications/apps"
+      application_type_folder="apps"
       application_type="app"
 fi
 
    if [ "$(echo ${application_file##*.})" = "game" ]; then
-      open_tmp_path="/tmp/floflis/openned-applications/games"
+      application_type_folder="games"
       application_type="game"
 fi
+
+open_tmp_path="/tmp/floflis/openned-applications/$application_type_folder"
 
    ##application_id="$(tar -zxvOf central.apps manifest.webapp | jq -r '.id')" # credits: https://www.unix.com/34764-post2.html
    ##application_name="$(tar -zxvOf central.apps manifest.webapp | jq -r '.name')"
@@ -46,7 +48,7 @@ fi
    if zenity --question --title "Install $application_name?" --width 500 --height 100 --text "You could open this $application_type without needing to doubleclick the \"$application_file\" file. Do you want to install \"$application_name\"?" --icon-name="central";then
       #mv "$current_app" /1/apps
       #if mv "$current_app" /1/apps; then echo "Moved";exit 0; else echo "Couldn't move";exit 0; fi
-      if mv "$current_app" /1/apps; then notify-send "From $application_file, \"$current_app\" has been successfully installed!";exit 0; else notify-send "Couldn't install \"$current_app\" from $application_file. Possibly this is already installed and couldn't be overwritten." --icon="error";rm -r "$current_app";rm manifest.webapp;exit 0; fi
+      if mv "$current_app" /1/$application_type_folder/; then notify-send "From $application_file, \"$current_app\" has been successfully installed!";exit 0; else notify-send "Couldn't install \"$current_app\" from $application_file. Possibly this is already installed and couldn't be overwritten." --icon="error";rm -r "$current_app";rm manifest.webapp;exit 0; fi
       #notify-send "From $application_file, \"$current_app\" has been successfully installed!"
       exit 0
    else
