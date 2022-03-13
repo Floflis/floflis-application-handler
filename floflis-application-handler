@@ -48,7 +48,9 @@ open_tmp_path="/tmp/floflis/openned-applications/$application_type_folder"
    if zenity --question --title "Install $application_name?" --width 500 --height 100 --text "You could open this $application_type without needing to doubleclick the \"$application_file\" file. Do you want to install \"$application_name\"?" --icon-name="central";then
       #mv "$current_app" /1/apps
       #if mv "$current_app" /1/apps; then echo "Moved";exit 0; else echo "Couldn't move";exit 0; fi
-      if mv "$current_app" /1/$application_type_folder/; then notify-send "From $application_file, \"$current_app\" has been successfully installed!";exit 0; else notify-send "Couldn't install \"$current_app\" from $application_file. Possibly this is already installed and couldn't be overwritten." --icon="error";rm -r "$current_app";rm manifest.webapp;exit 0; fi
+      if [ ! -f /1/$application_type_folder/$current_app ]; then
+         if mv "$current_app" /1/$application_type_folder/; then notify-send "From $application_file, \"$current_app\" has been successfully installed!";exit 0; else notify-send "Houston, we have a problem: Couldn't install \"$current_app\" from $application_file." --icon="error";rm -r "$current_app";rm manifest.webapp;exit 0; fi
+fi
       #notify-send "From $application_file, \"$current_app\" has been successfully installed!"
       exit 0
    else
