@@ -26,6 +26,7 @@ application/x-apps=floflis-application-handler.desktop
 application/x-game=floflis-application-handler.desktop
 EOF
 # this is continuously adding the same entries to mimeapps.list and have to be fixed
+#-<- should check if line is already added, before re-adding!
 
 installfail(){
    echo "Installation has failed."
