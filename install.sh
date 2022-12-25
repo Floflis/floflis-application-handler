@@ -17,6 +17,7 @@ Exec=floflis-application-handler %f
 Icon=central
 StartupNotify=false
 MimeType=application-x-apps;application-x-game;
+NoDisplay=true
 EOF
 
 echo "Turning floflis-application-handler into the default program (to user $flouser) for .apps and .game applications..."
