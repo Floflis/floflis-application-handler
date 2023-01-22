@@ -2,6 +2,14 @@
 
 flouser=$(logname)
 
+echo "Installing Floflis Packager..."
+cd include/Floflis-Packager
+if [ ! -e .git ]; then git clone --no-checkout https://github.com/Floflis/Floflis-Packager.git; fi
+if [ -e .git ]; then git pull; fi
+git checkout -f
+$maysudo sh ./install.sh
+cd "$SCRIPTPATH"
+
 echo "Installing floflis-application-handler..."
 
 sudo cp -f floflis-application-handler /usr/bin/floflis-application-handler
