@@ -1,5 +1,6 @@
 #!/bin/sh
 
+SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 flouser=$(logname)
 
 echo "Installing Floflis Packager..."
@@ -7,7 +8,7 @@ cd include/Floflis-Packager
 if [ ! -e .git ]; then git clone --no-checkout https://github.com/Floflis/Floflis-Packager.git; fi
 if [ -e .git ]; then git pull; fi
 git checkout -f
-$maysudo sh ./install.sh
+sudo sh ./install.sh
 cd "$SCRIPTPATH"
 
 echo "Installing floflis-application-handler..."
